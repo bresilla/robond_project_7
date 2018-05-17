@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<robot name="innok_heros_3" xmlns:xacro="http://ros.org/wiki/xacro">
+  
+  
+  <!-- VARIABLES--> 
+  <xacro:property name="PI"               value="3.1415926535897931"/>
+  <xacro:property name="wheel_radius"     value="0.160" />
+  <xacro:property name="wheel_width"      value="0.160" />
+  <xacro:property name="wheel_mass"       value="5.4" />
+  <xacro:property name="wheel_seperation" value="0.580" />
+
+
+
+  <!-- MODULES--> 
+  <xacro:include filename="$(find bresilla)/urdf/modules/heros_base_link.xacro"/>
+  <xacro:include filename="$(find bresilla)/urdf/modules/heros_wheel.xacro" />
+  <xacro:include filename="$(find bresilla)/urdf/modules/heros_drive.xacro" />
+  <xacro:include filename="$(find bresilla)/urdf/modules/heros_caster.xacro" />
+  <xacro:include filename="$(find bresilla)/urdf/modules/heros_battery.xacro" />
+  <xacro:include filename="$(find bresilla)/urdf/modules/heros_mounting_plate.xacro" />
+
+  <heros_base_link/>
+  <heros_drive   	        front_rear='rear'     dx='0.018' flip_z='1'/>
+  <heros_caster  	 	         	                  dx='0.637'		/>
+  <heros_battery 	        name='battery_box'    dx='0.336'		/>
+  <heros_mounting_plate   wheels='3'		        dx='-0.02'		/>
+
+
+
+  <!-- PLUGINS-->
+  <xacro:include filename="$(find bresilla)/urdf/gazebo/heros_joint_pub.xacro" />
+  <xacro:include filename="$(find bresilla)/urdf/gazebo/heros_diff_drive.xacro" />
+  
+  <heros_joint_pub joints='joint_base_wheel_rear_left, joint_base_wheel_rear_right, caster_bot_joint, caster_wheel_joint'/>
+  <heros_diff_drive/> 
+
+
+
+  <!-- SENSORS--> 
+  <xacro:include filename="$(find bresilla)/urdf/sensors/kinect.xacro" />
+  <xacro:include filename="$(find bresilla)/urdf/sensors/hokuyo.xacro" />
+
+</robot>

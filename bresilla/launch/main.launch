@@ -1,0 +1,41 @@
+<?xml version="2.0" encoding="UTF-8"?>
+<launch>
+  <!-- Arguments for launch file with defaults provided -->
+  <arg name="map_launch"        default="$(find bresilla)/worlds/kitchen.world"/>
+  <arg name="robo_launch"       default="$(find xacro)/xacro --inorder '$(find bresilla)/urdf/heros_3.xacro'"/>
+
+  <arg name="laser_scan"        default="/bresilla/laser/scan"/>
+  <arg name="database_path"     default="~/.ros/rtabmap.db"/>
+  <arg name="rgb_topic"         default="/camera/rgb/image_raw"/>
+  <arg name="depth_topic"       default="/camera/depth/image_raw"/>
+  <arg name="camera_info_topic" default="/camera/rgb/camera_info"/>
+
+
+  <arg name="world"             default="empty"/>
+  <arg name="paused"            default="false"/>
+  <arg name="use_sim_time"      default="true"/>
+  <arg name="gui"               default="true"/>
+  <arg name="headless"          default="false"/>
+  <arg name="debug"             default="false"/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name"    value="$(arg map_launch)"/>
+    <arg name="paused"        value="$(arg paused)"/>
+    <arg name="use_sim_time"  value="$(arg use_sim_time)"/>
+    <arg name="gui"           value="$(arg gui)"/>
+    <arg name="headless"      value="$(arg headless)"/>
+    <arg name="debug"         value="$(arg debug)"/>
+  </include>
+
+  <!-- Send URDF/XACRO to param server -->
+  <param name="robot_description" command="$(arg robo_launch)"/>
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -z 0.2 -x 0 -y 0 -model heros -param robot_description"/>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+
+  <node pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="1 0 0 0 0 0 1 link1_parent link1 100" />
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find bresilla)/launch/robot_slam.rviz"/>
+
+</launch>
