@@ -46,15 +46,29 @@ The same as FastSLAM, GraphSLAM solves the FullSLAM problem by using graphs (hen
 
 ## Robot Model and the World!
 
+To test SLAM and RTABMap algorithms we use Gazebo as simulator. Gazebo uses XARCO and XML files to describe models of the world and robots. It describes Physics of the enviroiment and robot, it describes the collision and visuals.
+
+In our testing we used two different world models, one made from UDACITY (caffe model) and one made by us (lab model) and tested with our model of robot.
+
 #### Cafe Model
+
+The world of UDACITY is a simple model of an kitchen/dinning/caffe room. It has many household equipment and robot has to move around while mapping and localizing itself using the mounted sensors. The room, is divided in two, and in both sides have an objects in the middle, making it quiet good for loop closures. Since there are a lot of elements in the kitchen, robot might have easier to create landmark points and match them easier based on uniqueness of those elements.
 
 ![demo-1](misc/screenshot_1.png)
 
 #### Lab Model
 
+Our model is based on real mapping of out labs/offices. The model is quiet big and its 1:1 representative of the real object. The elements of the office are removed, only walls are left (except the workshop located in the meddle). This is done for two reasons: one, it uses less memory for the simulation, and second, it is good to demonstrate how many loops it needs to do, to find an actual loop closure.
+
 ![demo-0](misc/screenshot.png)
 
 #### Rover Model
+
+Rover model is the same as the previous project's model, with some slight modification in sensor suite. The model is made modular in different XARCO file, in this way, we can easily switch from three wheeled robot to four wheeled robot (with only one line of code).
+
+The robot represents the real robot that we are building. It is 0.55 cm long, 0.3 width and 0.25 cm heigh. It is foreseen to handle an robotic arm, to be an completely mobile manipulator arm. Our internal goal is to make an apple harvesting robot. 
+
+On the front of the robot there is mounted a KINECT camera for simulation (in reality we are using RealSense). The camera angle is 15° up from the horizontal axis. In top of the robot, there is an 2D laser scan camera with an 260° view of the front. 
 
 ![demo-0](misc/diss.png)
 ![demo-1](misc/roscore.png)
