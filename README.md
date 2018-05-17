@@ -71,16 +71,28 @@ The robot represents the real robot that we are building. It is 0.55 cm long, 0.
 On the front of the robot there is mounted a KINECT camera for simulation (in reality we are using RealSense). The camera angle is 15° up from the horizontal axis. In top of the robot, there is an 2D laser scan camera with an 260° view of the front. 
 
 ![demo-0](misc/diss.png)
+
+Here is the complete ROS graph of each topic and their relation:
+
 ![demo-1](misc/roscore.png)
 
 ## Results
 
+The base navigation tack is manual. The keyboard sends keystroke messages to the teleop node for the direction and speed. When the world and model are launched, the RGB-D camera starts sending RAW data to the RTABMap node for further processing. As the first keystroke is hold down, the robot moves and new frames are acquired and send to the RTABMap.
+
 ![demo-2](misc/screenshot_2.png)
+
+In our case, the robot model dimensions were a bit big to freely move everywhere in the room. However after few cycles and loops, the RTABMap was able to reconstruct all the room into 3D points. During this time, several loop closures were observed. (the whole poses database is linked at the end of this WRITEUP)
 
 ![demo-3](misc/screenshot_3.png)
 
 ![demo-4](misc/screenshot_4.png)
 
+The same happened with the map created by us of our office. The difference was that, since we decided not to put many elements in the object, it was harder for the robot to find loop closures. However after some amount of time and some amount of RAM memory usage, the robot starts finding loop closures.
+
+
+## Future Work
+RTABMap shows that is very powerful tool to solve FullSLAM problem. In addition, it shows that even with one simple 3D camera, SLAM can be achieved. However to use only 3D camera and not the range sensor, there should be added another package that converts points of RGB-D camera into ranges and distances. This has its drawbacks, like the precision and accuracy of the points.
 
 ## POSES DATABASE
 https://1drv.ms/u/s!AqM4RXzOdEqwi6oHmX_xexRvEobMAg
