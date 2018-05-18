@@ -82,17 +82,21 @@ The base navigation tack is manual. The keyboard sends keystroke messages to the
 
 ![demo-2](misc/screenshot_2.png)
 
+![demo-3](misc/screenshot_4.png)
+
 In our case, the robot model dimensions were a bit big to freely move everywhere in the room. However after few cycles and loops, the RTABMap was able to reconstruct all the room into 3D points. During this time, several loop closures were observed. (the whole poses database is linked at the end of this WRITEUP)
 
-![demo-3](misc/screenshot_3.png)
-
-![demo-4](misc/screenshot_4.png)
+![demo-4](misc/screenshot_3.png)
 
 The same happened with the map created by us of our office. The difference was that, since we decided not to put many elements in the object, it was harder for the robot to find loop closures. However after some amount of time and some amount of RAM memory usage, the robot starts finding loop closures.
 
 
 ## Future Work
-RTABMap shows that is very powerful tool to solve FullSLAM problem. In addition, it shows that even with one simple 3D camera, SLAM can be achieved. However to use only 3D camera and not the range sensor, there should be added another package that converts points of RGB-D camera into ranges and distances. This has its drawbacks, like the precision and accuracy of the points.
+RTABMap shows that is very powerful tool to solve FullSLAM problem. In addition, it shows that even with one simple 3D camera, SLAM can be achieved. However to use only 3D camera and not the range sensor, there should be added another package that converts points of RGB-D camera into ranges and distances. This has its drawbacks, like the precision and accuracy of the points. Another drawback of the RTABMap is that the more complex the environment gets, the more memory is used and more difficult it becomes.
+
+Even though it will be very challenging task, our goal is to map an orchard field of 0.5Ha. Taking in consideration that plants are very complex, it will take a huge amount of memory to map that. However, for a harvesting robot, mapping its environment of operation is essential to successfully perform the tasks.
+
+
 
 ## POSES DATABASE
 https://1drv.ms/u/s!AqM4RXzOdEqwi6oHmX_xexRvEobMAg
